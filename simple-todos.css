@@ -4,7 +4,6 @@ body {
   background-color: #315481;
   background-image: linear-gradient(to bottom, #315481, #918e82 100%);
   background-attachment: fixed;
-  color: #315481;
 
   position: absolute;
   top: 0;
@@ -23,6 +22,7 @@ body {
   margin: 0 auto;
   min-height: 100%;
   background: white;
+  color: #315481;
 }
 
 header {
@@ -90,13 +90,11 @@ li .text {
 }
 
 li.checked {
-  color: #888;
-  /*color: rgba(49.84,129,0.5);*/
+  color: rgba(49,84,129,0.5) !important;
 }
 
 li.checked .text {
   text-decoration: line-through;
-  /*color: rgba(49.84,129,0.5);*/
 }
 
 li.private {
