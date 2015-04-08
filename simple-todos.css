@@ -4,6 +4,7 @@ body {
   background-color: #315481;
   background-image: linear-gradient(to bottom, #315481, #918e82 100%);
   background-attachment: fixed;
+  color: #315481;
 
   position: absolute;
   top: 0;
@@ -51,11 +52,10 @@ form {
 
 .new-task input {
   box-sizing: border-box;
-  padding: 10px 0;
-  background: transparent;
+  padding: 10px 80px 10px 10px;
+  background: rgba(255,255,255,.5);
   border: none;
   width: 100%;
-  padding-right: 80px;
   font-size: 1em;
 }
 
@@ -91,10 +91,12 @@ li .text {
 
 li.checked {
   color: #888;
+  /*color: rgba(49.84,129,0.5);*/
 }
 
 li.checked .text {
   text-decoration: line-through;
+  /*color: rgba(49.84,129,0.5);*/
 }
 
 li.private {
