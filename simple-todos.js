@@ -19,14 +19,20 @@ if (Meteor.isClient) {
   });
   Template.body.events({
     "submit .new-task": function(event){
-      // this funciton is called when the new-task form is submitted
+      // this function is called when the new-task form is submitted
       var text = event.target.text.value;
-      Tasks.insert({
-        text: text,
-        createdAt: new Date(),              // current time
-        owner: Meteor.userId(),             // _id of logged-in user
-        username: Meteor.user().username    // username of logged-in user
-      });
+
+      // deprecated after removal of insecure module
+      // Tasks.insert({
+      //   text: text,
+      //   createdAt: new Date(),              // current time
+      //   owner: Meteor.userId(),             // _id of logged-in user
+      //   username: Meteor.user().username    // username of logged-in user
+      // });
+      // end deprecated after removal of insecure module
+
+      Meteor.call("addTask", text);
+
       //clear form
       event.target.text.value="";
       //prevent default form submit
@@ -39,10 +45,16 @@ if (Meteor.isClient) {
   Template.task.events({
     "click .toggle-checked": function(){
       // set the checked property to the opposite of its current value
-      Tasks.update(this._id, {$set: {checked: ! this.checked}});
+      // deprecated after removal of insecure module
+      // Tasks.update(this._id, {$set: {checked: ! this.checked}});
+      // end deprecated after removal of insecure module
+      Meteor.call('setChecked', this._id, ! this.checked);
     },
     "click .delete": function(){
-      Tasks.remove(this._id);
+      // deprecated after removal of insecure module
+      // Tasks.remove(this._id);
+      // end deprecated after removal of insecure module
+      Meteor.call("deleteTask", (this._id));
     }
   });
   Accounts.ui.config({
@@ -54,4 +66,25 @@ if (Meteor.isServer) {
   Meteor.startup(function () {
     // code to run on server at startup
   });
+
+  Meteor.methods({
+    addTask: function(text){
+      // Make sure user is logged in before inserting a task
+      if(!Meteor.userId()){
+        throw new Meteor.Error('not-authorized');
+      }
+      Tasks.insert({
+        text: text,
+        createdAt: new Date(),
+        owner: Meteor.userId(),
+        username: Meteor.user().username
+      });
+    },
+    deleteTask: function(taskId){
+      Tasks.remove(taskId);
+    },
+    setChecked: function(taskId, setChecked){
+      Tasks.update(taskId, { $set: { checked: setChecked} });
+    }
+  })
 }
