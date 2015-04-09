@@ -6,14 +6,19 @@
 <body>
   <div class="container">
     <header>
+      <div class="login-space">
+      	{{> loginButtons}}
+      </div>
       <h1>ToDo List ({{incompleteCount}} remaining)</h1>
       <label class="hide-completed">
       	<input type="checkbox" checked = "{{hideCompleted}}" />
       	Hide Completed Tasks
       </label>
-      <form class="new-task">
-      	<input type="text" name="text" placeholder="Next ToDo's Text...." />
-      </form>
+      {{#if currentUser}}
+	      <form class="new-task">
+	      	<input type="text" name="text" placeholder="Next ToDo's Text...." />
+	      </form>
+      {{/if}}
     </header>
 
     <ul>
@@ -28,6 +33,6 @@
   <li class="{{#if checked}}checked{{/if}}">
   	<button class="delete">&times;</button>
   	<input type="checkbox" checked="{{checked}}" class="toggle-checked" />
-  	<span class="text">{{text}}</span>
+  	<span class="text"><strong>{{username}} - </strong>{{text}}</span>
   </li>
 </template>

@@ -32,6 +32,11 @@ header {
   position: relative;
 }
 
+.login-space{
+	text-align:left;
+	padding-bottom:10px;
+}
+
 #login-buttons {
   display: block;
 }
